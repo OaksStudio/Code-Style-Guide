@@ -39,6 +39,13 @@ using System;
 // - Add using line at the top to avoid typing namespace repeatedly.
 // - Create sub-namespaces with the dot (.) operator, e.g. MyApplication.GameFlow, MyApplication.AI, etc.
 namespace StyleSheetExample
+/// <summary>
+/// This file contains the implementation of the <see cref="StyleExample"/> class and related types.
+/// </summary>
+/// <remarks>
+/// This class demonstrates various coding style guidelines and best practices for C# development.
+/// It includes examples of naming conventions, field and property usage, event handling, and more.
+/// </remarks>
 {
 
     // ENUMS:
@@ -157,7 +164,7 @@ namespace StyleSheetExample
         // - Define a custom EventArg only if necessary (either System.EventArgs or a custom struct).
         // - OR alternatively, use the System.EventHandler; choose one and apply consistently.
         // - Choose a naming scheme for events, event handling methods (subscriber/observer), and event raising methods (publisher/subject)
-        // - e.g. event/action = "OpeningDoor", event raising method = "OnDoorOpened", event handling method = "MySubject_DoorOpened"
+        // - e.g. event/action = "OnOpeningDoor", event raising method = "OpenDoor", event handling method = "OnDoorOpened"
 
         // event before
         public event Action OnOpeningDoor;
@@ -168,13 +175,14 @@ namespace StyleSheetExample
         public event Action<int> OnPointsScored;
         public event Action<CustomEventArgs> OnThingHappened;
 
-        // These are event raising methods, e.g. OnDoorOpened, OnPointsScored, etc.
-        public void DoorOpened()
+        // These are event raising methods, e.g. OpenDoor, ScorePoints, etc.
+        public void OpenDoor()
         {
+            OnOpeningDoor?.Invoke();
             OnDoorOpened?.Invoke();
         }
 
-        public void PointsScored(int points)
+        public void ScorePoints(int points)
         {
             OnPointsScored?.Invoke(points);
         }
@@ -273,6 +281,23 @@ namespace StyleSheetExample
         public int MovementSpeed;
         public int HitPoints;
         public bool HasHealthPotion;
+    }
+
+
+    // SCRIPTABLE OBJECTS:
+    // - Name with a noun or noun phrase.
+    // - Use Pascal case.
+    // - Use SO as a suffix.
+
+    // - Creating Asset Menu
+    // - For file naming, append a suffix consisting of a max of 3 context-specific letters, e.g. "PI_Default" - PlayerInfo, "TH_Default" - Theme.
+    // - For menu name, start with "Oaks/" and then the context, e.g. "Oaks/Player/Info".
+
+    [CreateAssetMenu(fileName = "PI_Default", menuName = "Oaks/Player/Info", order = 0)]
+    public class PlayerInfoSO : ScriptableObject
+    {
+        public string PlayerName;
+        public int PlayerLevel;
     }
 
 }
